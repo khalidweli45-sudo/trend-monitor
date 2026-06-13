@@ -1,6 +1,8 @@
 import os
 import logging
 import requests
+import json
+import re
 from datetime import datetime, timedelta
 
 logger = logging.getLogger(__name__)
@@ -19,7 +21,7 @@ def get_trends():
             "messages": [
                 {
                     "role": "user",
-                    "content": f"What are the top 5 trending topics on X/Twitter right now covering football and politics since {since}? Return as JSON array with fields: title, summary, category, engagement_score (1-10)"
+                    "content": f"Return ONLY a JSON array with no markdown, no code blocks, no explanation. Just raw JSON. List top 5 trending football topics on X/Twitter since {since}. Each item must have: title, summary, category, engagement_score (1-10)."
                 }
             ],
             "stream": False
@@ -28,7 +30,7 @@ def get_trends():
         response.raise_for_status()
         data = response.json()
         content = data["choices"][0]["message"]["content"]
-        import json
+        content = re.sub(r'```json|```', '', content).strip()
         trends = json.loads(content)
         logger.info(f"Fetched {len(trends)} trends")
         return trends
