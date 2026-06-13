@@ -15,11 +15,11 @@ def get_trends():
         }
         since = (datetime.utcnow() - timedelta(hours=24)).strftime("%Y-%m-%dT%H:%M:%SZ")
         payload = {
-            "model": "grok-2-latest",
+            "model": "grok-3",
             "messages": [
                 {
                     "role": "user",
-                    "content": f"What are the top 5 trending topics on X/Twitter right now covering football and politics since {since}? Return as JSON array with fields: title, summary, url"
+                    "content": f"What are the top 5 trending topics on X/Twitter right now covering football and politics since {since}? Return as JSON array with fields: title, summary, category, engagement_score (1-10)"
                 }
             ],
             "stream": False
