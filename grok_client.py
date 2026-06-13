@@ -19,7 +19,7 @@ def get_trends():
             "messages": [
                 {
                     "role": "user",
-                    "content": f"What are the top 5 trending football topics on X/Twitter right now since {since}? Return as JSON array with fields: title, summary, url"
+                    "content": f"What are the top 5 trending topics on X/Twitter right now covering football and politics since {since}? Return as JSON array with fields: title, summary, url"
                 }
             ],
             "stream": False
